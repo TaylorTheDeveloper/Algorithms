@@ -14,15 +14,17 @@ Assignment 2 - Sorting Implementation and analysis.
 
 Dev Notes:
 
-9-20-14 Issue with generatedData, generates n+1 instead of n. Minor error.
+9-20-15 Issue with generatedData, generates n+1 instead of n. Minor error.
 
-9-20-14 Segmentation Fault with Mergesort
+9-20-15 Segmentation Fault with Mergesort
+
+9-20-15 Counting Sort Issue, names are not linked. Maybe make a seperate array for them or combine them in struct array idk
 
 
 
 FIXED
 
-9-20-14 Issue with insertion sort, only partially sorting - FIXED 9-20-14
+9-20-15 Issue with insertion sort, only partially sorting - FIXED 9-20-15
 
 
 
@@ -52,6 +54,8 @@ const string names[] = {"Yoda", "Doku", "Palpatine","Obiwan","C3PO","R2D2","Chew
 
 const char filename[] = "data.txt";//Output filename
 
+const int randUpperLimit = 100;
+
 
 
 struct Item{
@@ -69,8 +73,6 @@ struct Item{
 void generateDataFile(int num){
 
 	//This function generates up to 'num' lines of data for my sorting programs
-
-	int randUpperLimit = 100;
 
 	int nameUpperLimit = sizeof(names)/sizeof(*names);//Get length of array (total bytes/ byte size of each element)
 
@@ -340,7 +342,57 @@ void mergeSort(vector<Item> &stuff, int l, int r){
 
 
 
-void countSort(vector<Item> &stuff){
+void countingSort(vector<Item> &stuff){
+
+	//Counting Sort
+
+	
+
+	int countingArray[randUpperLimit];
+
+
+
+	//Buckets for each of the numbers up to our upper limit
+
+	for(int i = 0; i < randUpperLimit; i++){
+
+
+
+		countingArray[i]=0;
+
+	}
+
+
+
+
+
+	//Count instances of items in each buckets
+
+	for (int i=0;i< stuff.size()-1;i++){ 
+
+        countingArray[stuff[i].num]++;
+
+    }
+
+
+
+    int outputindex = 0;
+
+
+
+    for(int j =0; j < randUpperLimit;j++){
+
+    	while(countingArray[j]--){
+
+    		stuff[outputindex++].num = j;
+
+    	}
+
+    }
+
+
+
+    printData(stuff);
 
 
 
@@ -364,9 +416,15 @@ int main(){
 
 	//insertionSort(list);
 
-	cout << endl << "First Call " << 0 << " " << list.size()-1 << endl;
+	//cout << endl << "First Call " << 0 << " " << list.size()-1 << endl;
 
-	mergeSort(list,0, list.size()-1);
+	//mergeSort(list,0, list.size()-1);
+
+//cout << "Seggy " << i << endl;
+
+	countingSort(list);
+
+
 
 
 
