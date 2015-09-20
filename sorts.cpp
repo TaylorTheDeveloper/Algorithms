@@ -16,6 +16,8 @@ Dev Notes:
 
 9-20-14 Issue with generatedData, generates n+1 instead of n. Minor error.
 
+9-20-14 Segmentation Fault with Mergesort
+
 
 
 FIXED
@@ -46,7 +48,7 @@ using namespace std;
 
 
 
-const string names[] = {"Yoda", "Doku", "Palpatine","Obiwan","C3PO","R2D2","Chewbacca","Han","Lando","Jabba","Windu","Luke","Liea"};
+const string names[] = {"Yoda", "Doku", "Palpatine","Obiwan","C3PO","R2D2","Chewbacca","Han","Lando","Jabba","Windu","Luke","Leia"};
 
 const char filename[] = "data.txt";//Output filename
 
@@ -124,7 +126,7 @@ void printData(vector<Item> &stuff){
 
 	//Making sure data is inside the list is correct
 
-	for(int i = 0; i < stuff.size(); i++){
+	for(int i = 0; i < stuff.size()-1; i++){
 
 		cout << stuff[i].num << " " << stuff[i].name << endl;
 
@@ -212,6 +214,10 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 
 
+	cout << endl << "Inside Merge " << l << " " << r << endl;
+
+
+
 
 
 	//Create Temp Arrays
@@ -238,7 +244,7 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 	//Merge arrays back into into stuff
 
-	i = 0, j =0, k =l;
+	i =0, j =0, k =l;
 
 
 
@@ -256,6 +262,8 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 			stuff[k] = right[j];
 
+			j++;
+
 		}
 
 		k++;
@@ -266,9 +274,29 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 	//if there are remaining left items, copy them
 
+	while( i < n1){
+
+		stuff[k] = left[i];
+
+        i++;
+
+        k++;
+
+	}
+
 
 
 	//if there are remaining right items, copy them
+
+	while( j < n2){
+
+		stuff[k] = right[j];
+
+        j++;
+
+        k++;
+
+	}
 
 
 
@@ -286,15 +314,33 @@ void mergeSort(vector<Item> &stuff, int l, int r){
 
 	if( l < r){
 
-		int m =  (l + r)/2;
+		int m =  (l+r)/2;
 
 		mergeSort(stuff,l,m);
 
 		mergeSort(stuff,m+1,r);
 
+
+
+		cout << endl << "Before Merge " << l << " " << r << endl;
+
+
+
 		merge(stuff,l,m,r);
 
 	}
+
+
+
+
+
+	printData(stuff);
+
+}
+
+
+
+void countSort(vector<Item> &stuff){
 
 
 
@@ -308,7 +354,7 @@ int main(){
 
 
 
-	//generateDataFile(100);
+	//generateDataFile(10);
 
 	loadData(list);
 
@@ -317,6 +363,10 @@ int main(){
 	//smallestItem(list);
 
 	//insertionSort(list);
+
+	cout << endl << "First Call " << 0 << " " << list.size()-1 << endl;
+
+	mergeSort(list,0, list.size()-1);
 
 
 
