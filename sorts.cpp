@@ -228,6 +228,8 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 
 
+
+
 	//Copy Data to Temp Arrays left and right
 
 	for(i = 0; i <n1; i++){
@@ -236,9 +238,19 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 	}
 
+
+
 	for(j = 0; j <n2; j++){
 
-		right[i] = stuff[m + j + 1];
+
+
+cout << "Seggy " << n2 << endl;		
+
+		right[i] = stuff[m + j ];
+
+
+
+
 
 	}
 
@@ -336,7 +348,7 @@ void mergeSort(vector<Item> &stuff, int l, int r){
 
 
 
-	printData(stuff);
+	
 
 }
 
@@ -344,9 +356,9 @@ void mergeSort(vector<Item> &stuff, int l, int r){
 
 void countingSort(vector<Item> &stuff){
 
-	//Counting Sort
+	//Counting Sort	
 
-	
+
 
 	int countingArray[randUpperLimit];
 
@@ -356,13 +368,9 @@ void countingSort(vector<Item> &stuff){
 
 	for(int i = 0; i < randUpperLimit; i++){
 
-
-
 		countingArray[i]=0;
 
 	}
-
-
 
 
 
@@ -406,7 +414,7 @@ int main(){
 
 
 
-	//generateDataFile(10);
+	generateDataFile(10000);
 
 	loadData(list);
 
@@ -414,17 +422,21 @@ int main(){
 
 	//smallestItem(list);
 
-	//insertionSort(list);
+	insertionSort(list);
+
+	
 
 	//cout << endl << "First Call " << 0 << " " << list.size()-1 << endl;
 
 	//mergeSort(list,0, list.size()-1);
 
-//cout << "Seggy " << i << endl;
+	
 
-	countingSort(list);
+	//countingSort(list);
 
+	
 
+	//printData(list);
 
 
 
