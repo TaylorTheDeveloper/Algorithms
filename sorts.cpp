@@ -168,9 +168,7 @@ void insertionSort(vector<Item> &stuff){
 
 	//Insertion sort
 
-	//Interpreted from lecture slides
-
-
+	
 
 	Item tmp;
 
@@ -202,9 +200,103 @@ void insertionSort(vector<Item> &stuff){
 
 
 
-void mergeSort(vector<ITem> &stuff){
+void merge(vector<Item> &stuff, int l, int m, int r){
 
-	
+
+
+	int i = 0, j = 0, k = 0; //Counting variables
+
+	int n1 = m - l + 1;//of left
+
+	int n2 = r - m;//of right
+
+
+
+
+
+	//Create Temp Arrays
+
+	Item left[n1], right[n2];
+
+
+
+	//Copy Data to Temp Arrays left and right
+
+	for(i = 0; i <n1; i++){
+
+		left[i] = stuff[l+i];
+
+	}
+
+	for(j = 0; j <n2; j++){
+
+		right[i] = stuff[m + j + 1];
+
+	}
+
+
+
+	//Merge arrays back into into stuff
+
+	i = 0, j =0, k =l;
+
+
+
+	while(i < n1 && j < n2){
+
+		if(left[i].num <= right[j].num){
+
+			stuff[k] = left[i];
+
+			i++;
+
+		}
+
+		else{
+
+			stuff[k] = right[j];
+
+		}
+
+		k++;
+
+	}
+
+
+
+	//if there are remaining left items, copy them
+
+
+
+	//if there are remaining right items, copy them
+
+
+
+}
+
+
+
+void mergeSort(vector<Item> &stuff, int l, int r){
+
+	//Merge sort
+
+	//Call like: mergeSort(list,0,list.size()-1)
+
+
+
+	if( l < r){
+
+		int m =  (l + r)/2;
+
+		mergeSort(stuff,l,m);
+
+		mergeSort(stuff,m+1,r);
+
+		merge(stuff,l,m,r);
+
+	}
+
+
 
 }
 
