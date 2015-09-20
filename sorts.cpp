@@ -66,8 +66,6 @@ struct Item{
 
 
 
-
-
 void generateDataFile(int num){
 
 	//This function generates up to 'num' lines of data for my sorting programs
@@ -86,11 +84,15 @@ void generateDataFile(int num){
 
   	for(int i =0; i< num; i++){
 
-  		myfile << rand()%randUpperLimit << " " << names[rand()%nameUpperLimit] << endl;
+  		myfile << rand()%randUpperLimit << " " << names[rand()%nameUpperLimit] << endl; //Generate random #'s (between 0 and the randUpperLimit) and names from the list'
 
   	}
 
   	myfile.close();
+
+
+
+  	cout << "File written " << filename << endl;
 
 }
 
@@ -98,7 +100,7 @@ void generateDataFile(int num){
 
 void loadData(vector<Item> &stuff){
 
-	//Loads Generated Data into program
+	//Loads Generated Data into vector construct
 
 	Item indexItem;
 
@@ -124,7 +126,7 @@ void loadData(vector<Item> &stuff){
 
 void printData(vector<Item> &stuff){
 
-	//Making sure data is inside the list is correct
+	//Prints the data in the list one line at a time
 
 	for(int i = 0; i < stuff.size()-1; i++){
 
@@ -143,6 +145,8 @@ int smallestItemIndex(vector<Item> &stuff){
 	//Helper function that finds the smallest value and returns it's index. 
 
 	//(DOES NOT RETURN ITS VALUE)
+
+	//unused in this project
 
 	int index = 0;
 
@@ -246,11 +250,9 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 
 
-	//Merge arrays back into into stuff
+	//Merge arrays back into into stuff(item vector)
 
 	i =0, j =0, k =l;
-
-
 
 	while(i < n1 && j < n2){
 
@@ -334,10 +336,6 @@ void mergeSort(vector<Item> &stuff, int l, int r){
 
 	}
 
-
-
-
-
 	
 
 }
@@ -392,6 +390,8 @@ void countingSort(vector<Item> &stuff){
 
 
 
+    //re-order items in array
+
     for(int j =0; j < randUpperLimit;j++){
 
     	while(countingArray[j]--){
@@ -412,13 +412,47 @@ void countingSort(vector<Item> &stuff){
 
 
 
-int main(){
+int main(int argc, char *argv[]){
 
-	vector<Item> list;
+	vector<Item> list;//Storage of list items
+
+	int toGenerate = 10;//Default to generate
 
 
 
-	generateDataFile(10000);
+	// if(argc > 0){
+
+	// 	if(*argv[0]='g'){
+
+	// 		if(argc >= 1){
+
+	// 			toGenerate = *argv[1];
+
+	// 			cout << toGenerate << endl;
+
+	// 		}
+
+	// 		else{
+
+	// 			toGenerate = 10;
+
+	// 			cout << toGenerate << endl;
+
+	// 		}
+
+	// 		cout << "Generating " << toGenerate << " records." << endl;
+
+	// 		generateDataFile(toGenerate);
+
+	// 	}
+
+	// }
+
+
+
+	generateDataFile(toGenerate);
+
+
 
 	loadData(list);
 
