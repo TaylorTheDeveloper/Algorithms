@@ -14,10 +14,6 @@ Assignment 2 - Sorting Implementation and analysis.
 
 Dev Notes:
 
-9-20-15 Issue with generatedData, generates n+1 instead of n. Minor error.
-
-9-20-15 Segmentation Fault with Mergesort
-
 9-20-15 Counting Sort Issue, names are not linked. Maybe make a seperate array for them or combine them in struct array idk
 
 
@@ -26,7 +22,9 @@ FIXED
 
 9-20-15 Issue with insertion sort, only partially sorting - FIXED 9-20-15
 
+9-20-15 Issue with generatedData, generates n+1 instead of n. Minor error. - FIXED 9-20-15
 
+9-20-15 Segmentation Fault with Mergesort - FIXED 9-20-15 (missued variable)
 
 
 
@@ -50,7 +48,7 @@ using namespace std;
 
 
 
-const string names[] = {"Yoda", "Doku", "Palpatine","Obiwan","C3PO","R2D2","Chewbacca","Han","Lando","Jabba","Windu","Luke","Leia"};
+const string names[] = {"Yoda", "Doku", "Vader", "Palpatine","Obiwan","C3PO","R2D2","Chewbacca","Han","Lando","Jabba","Windu","Luke","Leia", "Boba", "Padme", "JarJarBinks","Kylo","Kyhigh"};
 
 const char filename[] = "data.txt";//Output filename
 
@@ -216,7 +214,7 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 
 
-	cout << endl << "Inside Merge " << l << " " << r << endl;
+	//cout << endl << "Inside Merge " << l << " " << r << endl;
 
 
 
@@ -242,15 +240,7 @@ void merge(vector<Item> &stuff, int l, int m, int r){
 
 	for(j = 0; j <n2; j++){
 
-
-
-cout << "Seggy " << n2 << endl;		
-
-		right[i] = stuff[m + j ];
-
-
-
-
+		right[j] = stuff[m + j + 1];
 
 	}
 
@@ -336,7 +326,7 @@ void mergeSort(vector<Item> &stuff, int l, int r){
 
 
 
-		cout << endl << "Before Merge " << l << " " << r << endl;
+		//cout << endl << "Before Merge " << l << " " << r << endl;
 
 
 
@@ -349,6 +339,20 @@ void mergeSort(vector<Item> &stuff, int l, int r){
 
 
 	
+
+}
+
+
+
+void callMergeSort(vector<Item> &stuff, int l, int r){
+
+	//Due to the recursive nature or mergesort, this function wrapps the mergesort function so we dont print out of context
+
+	mergeSort(stuff,0,stuff.size()-1);
+
+
+
+    printData(stuff);
 
 }
 
@@ -422,13 +426,13 @@ int main(){
 
 	//smallestItem(list);
 
-	insertionSort(list);
+	//insertionSort(list);
 
 	
 
 	//cout << endl << "First Call " << 0 << " " << list.size()-1 << endl;
 
-	//mergeSort(list,0, list.size()-1);
+	callMergeSort(list,0, list.size()-1);
 
 	
 
